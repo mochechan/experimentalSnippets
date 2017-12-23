@@ -1,0 +1,22 @@
+<html>
+<script>
+function run1(d) {
+  d.style.color ="red";
+  d.style.fontSize ="x-large";
+}
+
+function run2(d) {
+  d.style.color ="yellow";
+  d.style.fontSize ="x-large";
+  document.write("<br / >");
+document.write(document + "<br / >");
+document.write("previous document string<br / >");
+document.write("<br / >");
+document.end("end ...<br / >");
+}
+</script>
+<body>
+<div id='display' onclick="run1(this)">click me.</div>
+<div id='display' onclick="run2(this)">click me.</div>
+</body>
+</html>
