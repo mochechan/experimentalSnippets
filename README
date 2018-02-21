@@ -7,6 +7,24 @@ Some scripts, codes, snippets,
 
 
 # todo:
-..* docker install for rpi2/rpi1. 
+merge kudu builds to dockerfile in rpi
 
+
+docker mqtt broker for rpi
+
+
+--verbosity 3 --rpc --rpcport 8545 --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "eth,miner,net,personal,web3" --ws
+
+--rpc --rpccorsdomain '*' --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3 --rpcaddr 0.0.0.0 --nat any --ipcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3 --networkid 442 --maxpeers 99 --verbosity 6 console
+
+git push
+
+===========
+https://www.raspberrypi.org/magpi/dropbox-raspberry-pi/
+github.com/andreafabrizi/Dropbox-Uploader.git
+
+
+docker-specific 
+https://github.com/jpetazzo/pipework
+https://github.com/brandon-rhodes/fopnp
 

@@ -1,0 +1,39 @@
+
+# docker build --file rpi1 --build-arg USER=$USER --tag rpi1test .
+# docker run -it --rm --volume $HOME:$HOME rpi1test 
+
+# for Raspberry PI 1 
+#FROM resin/rpi-raspbian:latest
+
+# for Raspberry PI 2 
+#FROM resin/raspberrypi2-debian:latest
+
+ARG USER
+ENV USER=$USER 
+RUN mkdir -pv /home/$USER /etc/sudoers.d && \
+        export uid=1000 gid=1000 && \
+        echo "${USER}:x:${uid}:${gid}:${USER},,,:/home/${USER}:/bin/bash" >> /etc/passwd && \
+        echo "${USER}:x:${uid}:" >> /etc/group && \
+        echo "${USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER} && \
+        chmod 0440 /etc/sudoers.d/${USER} && \
+        chown ${uid}:${gid} -R /home/${USER} && \
+        echo "ls -l " | tee -a /etc/bash.bashrc && \
+        echo "set number\nset tabstop=2" | tee -a /root/.vimrc && \
+        sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /root/.bashrc && \
+        echo "\n\n" | tee -a /root/.bashrc && \
+        chmod +x /usr/bin/*.sh && \
+        grep -e '^# .* multiverse$' -e '^# .* restricted$' /etc/apt/sources.list | cut -c2- | tee -a /etc/apt/sources.list 
+
+RUN apt -y update && apt -y full-upgrade && \
+	apt install -y mosquitto apt-utils wget vim htop curl git net-tools iproute2 pppoeconf && \
+	apt-get clean && \
+	curl https://nodejs.org/dist/latest-v8.x/node-v8.9.4-linux-armv6l.tar.gz | tar -zx --directory /usr/ --strip-components=1 && \
+	curl https://dl.google.com/go/go1.9.4.linux-armv6l.tar.gz | tar -C /usr/local -xz && \
+	echo '	export GOROOT=/usr/local/go' | tee -a /root/.bashrc && \
+	echo '	export GOPATH=$HOME/.go' | tee -a /root/.bashrc && \
+	echo '	export PATH=$PATH:/usr/local/go/bin' | tee -a /root/.bashrc && \
+	echo '	export PATH=$PATH:$GOROOT/bin' | tee -a /root/.bashrc && \
+	mkdir -pv $HOME/.go
+
+RUN npm install -g http-server
+
