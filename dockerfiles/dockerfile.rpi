@@ -35,5 +35,5 @@ RUN apt -y update && apt -y full-upgrade && \
 	echo '	export PATH=$PATH:$GOROOT/bin' | tee -a /root/.bashrc && \
 	mkdir -pv $HOME/.go
 
-RUN npm install -g http-server
+RUN npm install -g http-server bitaddress
 
