@@ -14,6 +14,8 @@ elif [ "${rpimodel}" == "Raspberry Pi Model B Rev 2" ]; then
 
 else
 	echo This is not a Raspberry PI.
+	lsb_release -a
+	echo "FROM amd64/ubuntu:16.04" | cat - dockerfile.rpi | tee -a Dockerfilerpi
 
 fi
 
