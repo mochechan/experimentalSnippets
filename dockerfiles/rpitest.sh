@@ -19,6 +19,8 @@ fi
 
 
 docker build --file Dockerfilerpi --build-arg USER=$USER --tag rpitest .
-docker run -it --volume $HOME:$HOME -p 8080:8080 --privileged=true --net=host rpitest 
+rm -v Dockerfilerpi
+
+docker run -it --volume $HOME:$HOME -p 8080:8080 --privileged=true --net=host rpitest /bin/bash  
 
 
