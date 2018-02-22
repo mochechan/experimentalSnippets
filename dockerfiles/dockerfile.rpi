@@ -1,5 +1,5 @@
 
-# docker build --file rpi1 --build-arg USER=$USER --tag rpi1test .
+# docker build --file this_filename --build-arg USER=$USER --tag rpi1test .
 # docker run -it --rm --volume $HOME:$HOME rpi1test 
 
 # for Raspberry PI 1 
@@ -21,7 +21,7 @@ RUN mkdir -pv /home/$USER /etc/sudoers.d && \
         echo "set number\nset tabstop=2" | tee -a /root/.vimrc && \
         sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /root/.bashrc && \
         echo "\n\n" | tee -a /root/.bashrc && \
-        chmod +x /usr/bin/*.sh && \
+        chmod --quiet --recursive +x /usr/bin/*.sh && \
         grep -e '^# .* multiverse$' -e '^# .* restricted$' /etc/apt/sources.list | cut -c2- | tee -a /etc/apt/sources.list 
 
 RUN apt -y update && apt -y full-upgrade && \
