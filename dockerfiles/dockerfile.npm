@@ -1,0 +1,7 @@
+RUN npm install -g mocha http-server bitaddress &&\
+	echo '	export GOROOT=/usr/local/go' | tee -a /root/.bashrc &&\
+	echo '	export GOPATH=$HOME/.go' | tee -a /root/.bashrc &&\
+	echo '	export PATH=$PATH:/usr/local/go/bin' | tee -a /root/.bashrc &&\
+	echo '	export PATH=$PATH:$GOROOT/bin' | tee -a /root/.bashrc &&\
+	mkdir -pv $HOME/.go && node -v && go version
+
