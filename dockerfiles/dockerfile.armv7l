@@ -1,0 +1,3 @@
+RUN curl --verbose https://nodejs.org/dist/latest-v8.x/node-v8.10.0-linux-armv7l.tar.gz | tar -zx --directory /usr/ --strip-components=1 &&\
+	curl --verbose https://dl.google.com/go/go1.10.linux-armv7l.tar.gz | tar -C /usr/local -xz 
+

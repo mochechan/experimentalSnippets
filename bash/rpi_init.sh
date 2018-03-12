@@ -4,8 +4,24 @@ echo This script initiates your Raspberry PI.
 
 echo swappiness: "$(cat /proc/sys/vm/swappiness)" 
 
+# for error check
+function ec {
+    errorlevel=$?
+    echo errorlevel: $errorlevel 
+    if [ "$errorlevel" -gt "0" ]; then 
+        echo Install: The current errorlevel code is invalid. Please check. 
+        exit $errorlevel;
+    else 
+        echo Install: so far so good. 
+    fi
+}
 
+
+# for general Raspberry PI installation
 function general(){
+
+
+	echo 'docker run -tid -p 1883:1883 -p 9001:9001 pascaldevink/rpi-mosquitto' | sudo tee -a /etc/rc.local
 
 	echo 'vm.swappiness = 10' | sudo tee -a /etc/sysctl.conf 
 
@@ -20,6 +36,23 @@ function general(){
 	else
 		echo ignoring to install docker 
 	fi
+
+	# TODO: docker-compose for armv6l
+	#sudo curl -L "https://github.com/docker/compose/releases/download/1.19.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	#ec
+	#sudo chmod +x /usr/local/bin/docker-compose
+	#ec 
+	#docker-compose --version
+
+	#git config --global user.email "chan@alumni.ncu.edu.tw"
+	#git config --global user.name "Moche Chan"
+	git config --global push.default simple
+	git config --global core.editor vi
+	git config --global help.autocorrect 1
+	git config --global color.ui true
+	git config --global credential.helper cache
+	git config --global credential.helper "cache --timeout=99999999"
+
 
 }
 
