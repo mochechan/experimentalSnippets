@@ -1,0 +1,8 @@
+Initializing daemon...
+Swarm listening on /ip4/127.0.0.1/tcp/40927
+Swarm listening on /ip4/172.17.0.2/tcp/40927
+Swarm listening on /p2p-circuit/ipfs/QmZiCPx63XeWo6N7w5dpLahLuskGE46nQ8D8ntvTiTML2Q
+Swarm announcing /ip4/127.0.0.1/tcp/40927
+Swarm announcing /ip4/172.17.0.2/tcp/40927
+API server listening on /ip4/127.0.0.1/tcp/37613
+Daemon is ready

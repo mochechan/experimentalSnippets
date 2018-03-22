@@ -32,3 +32,11 @@ https://github.com/brandon-rhodes/fopnp
 https://stackoverflow.com/questions/29229535/measure-similarity-of-two-images-in-java-or-imagemagick
 
 
+receiver: nc -l -p 1234| tar -zx 
+sender: tar -zc . - | nc -w 3 kay.zyxel.me 1234
+
+
+https://github.com/mmurdoch/arduinounit
+
+after version 1.8.0
+geth attach ipc:\\.\pipe\geth.ipc 
