@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>aes-js</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+<script type="text/javascript" src="//cdn.rawgit.com/chrisveness/crypto/4e93a4d/sha256.js"></script>
+<script type="text/javascript" src="sjcl.min.js"></script>
+<script>
+
+	sjcl.random.startCollectors();
+
+// to easily encrypt and decrypt data (using AES):
+var msg = sjcl.encrypt("secret", "Hi Alice!");
+console.log(sjcl.decrypt("secret", msg));
+
+var hash = sjcl.hash.sha256.hash("hello world");
+console.log("hash: "+sjcl.codec.hex.fromBits(hash));
+// It should print: "hash: b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9"
+
+//ecdsa
+// Generate a key pair and use it to sign the SHA-256 hash
+var curve = sjcl.ecc.curves.k256;
+var keys = sjcl.ecc.ecdsa.generateKeys(curve,6); // 6 is actually the default paranoia, so you can omit that
+var signature = keys.sec.sign(hash);
+
+// Extract the coordinates of the public point and create a public key object for testing
+var pubkey_x = new curve.field(sjcl.bn.fromBits(keys.pub.get().x));
+var pubkey_y = new curve.field(sjcl.bn.fromBits(keys.pub.get().y));
+var point = new sjcl.ecc.point(curve, pubkey_x, pubkey_y);
+var newpubkey = new sjcl.ecc.ecdsa.publicKey(curve, point);
+
+// Print the signature and verify it
+console.log("sign: "+sjcl.codec.base64.fromBits(signature));
+console.log("verified: "+newpubkey.verify(hash, signature));
+
+
+
+
+</script>
+
+demo for https://github.com/bitwiseshiftleft/sjcl/
+http://blog.peramid.es/blog/2014/09/09/short-introduction-to-sjcl/
+
+</body>
+</html>

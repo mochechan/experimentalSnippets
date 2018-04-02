@@ -40,3 +40,5 @@ https://github.com/mmurdoch/arduinounit
 
 after version 1.8.0
 geth attach ipc:\\.\pipe\geth.ipc 
+
+include rpicloud 

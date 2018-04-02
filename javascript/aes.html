@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>aes-js</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+<script type="text/javascript" src="//cdn.rawgit.com/chrisveness/crypto/4e93a4d/sha256.js"></script>
+<script>
+
+        var pw = "this is password/key";
+        console.log("key:" + pw);
+
+        //prepare key and plain text
+        var pwhash = (Sha256.hash(pw));
+        var pwhashBytes = (aesjs.utils.hex.toBytes(pwhash));
+				console.log("sha256 of key:" + pwhash);
+
+        var text = "plain data";
+        console.log("plain:" + text);
+        var textBytes = aesjs.utils.utf8.toBytes(text)
+
+        //encrypt
+        var aesCtr = new aesjs.ModeOfOperation.ctr(pwhashBytes, new aesjs.Counter(5));
+        var encryptedBytes = aesCtr.encrypt(textBytes);
+        var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+        console.log("encryptedHex:" + encryptedHex);
+
+        //decrypt
+        var encryptedBytes2 = aesjs.utils.hex.toBytes(encryptedHex);
+        var aesCtr2 = new aesjs.ModeOfOperation.ctr(pwhashBytes, new aesjs.Counter(5));
+        var decryptedBytes = aesCtr2.decrypt(encryptedBytes2);
+
+        // Convert our bytes back into text
+        var decrypted = aesjs.utils.utf8.fromBytes(decryptedBytes);
+        console.log("decrypted: " + decrypted);
+
+
+</script>
+
+demo for https://github.com/ricmoo/aes-js
+
+</body>
+</html>
